@@ -15,3 +15,4 @@ sh install.sh
 
 
 Info: Choose install.sh for stable build, install_daily.sh for bleeding edge daily build
+If you dare to run the install-script a second time, please do at least an "hg update" before.
