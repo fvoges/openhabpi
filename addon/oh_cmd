@@ -1,0 +1,55 @@
+#!/bin/bash
+
+# Config
+HOST=localhost:8080
+
+# Usage
+#oh_cmd get ITEM1 ITEM2...
+#oh_cmd set ITEM your value
+#oh_cmd send ITEM your value
+#oh_cmd list PATTERN
+
+# Parameter
+CMD=$1; shift
+
+case $CMD in
+get)
+  while (( "$#" ))
+  do
+    ITEM=$1
+    curl -f http://$HOST/rest/items/$ITEM/state 2>/dev/null || exit 1
+    [ $? -eq 0 ] && echo
+    shift
+  done
+  ;;
+
+set)
+  ITEM=$1
+  shift
+  VAL=$*
+  echo -n $VAL | curl -f -X PUT --raw -T - http://$HOST/rest/items/$ITEM/state 2>/dev/null || exit 1
+  ;;
+
+send)
+  ITEM=$1
+  shift
+  VAL=$*
+  echo -n $VAL | curl -f -X POST --raw -T - http://$HOST/rest/items/$ITEM || exit 1
+  ;;
+
+list)
+  PATTERN=$1
+  echo $PATTERN':' >&2
+  curl -f http://$HOST/rest/items 2>&1 | sed -e 's/></>\n</g' | grep "<name>.*</name>"| tr -s '<>' ' ' | cut -f3 -d' ' | grep -i $PATTERN 
+  ;;
+
+*)
+  echo "Usage:"
+  echo "$0 get ITEM1 [ITEM2...]|set ITEM VALUE [OR STRING]|send ITEM VALUE [OR STRING]|list PATTERN"
+  echo 'get  - Reads the ITEMs state. Multiple items may be specified'
+  echo 'set  - Updates the ITEMs state. Everything after the ITEM name will be the new value'
+  echo 'send - Posts command to update an ITEM to a new value'
+  echo 'list - Returns a list of items matching PATTERN'
+  ;;
+esac
+

@@ -1,0 +1,21 @@
+_oh_cmd()
+{
+    local cur=${COMP_WORDS[COMP_CWORD]}
+    if [ $COMP_CWORD -eq 1 ];
+    then
+     COMPREPLY=( $(compgen -W "$(echo get list set send|tr -s ' ' '\n')" -- $cur) )
+     return
+    fi
+    if [ $COMP_CWORD -eq 2 ];
+    then
+      COMPREPLY=( $(compgen -W "$(/usr/local/bin/oh_cmd list . 2>/dev/null)" -- $cur) )
+      return
+    fi
+
+    #cat ${DSH_SYSTEMS}/* | sort -u | tr a-z A-Z > /tmp/dsh_hosts
+    #COMPREPLY=( $(compgen -W "$(cat /tmp/dsh_hosts)" -- $cur) )
+
+    COMPREPLY=( $(compgen -W "/usr/local/bin/oh_cmd list $cur 2>/dev/null" -- $cur) )
+}
+complete -F _oh_cmd oh_cmd
+
