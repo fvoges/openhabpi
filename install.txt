@@ -12,3 +12,6 @@ apt-get install mercurical
 hg clone https://hlw31.de@code.google.com/p/openhabpi/
 cd openhabpi
 sh install.sh
+
+
+Info: Choose install.sh for stable build, install_daily.sh for bleeding edge daily build
