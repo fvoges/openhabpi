@@ -1,0 +1,14 @@
+- Install Wheezy onto SD (http://elinux.org/RPi_Easy_SD_Card_Setup, 2013-05-25-wheezy-raspbian.zip)
+- sudo raspi-config
+  - Update raspi-config
+  - Set hostname ("openhab")
+  - Set memory split (16MB for GPU)
+  - Disable boot to desktop
+  - Enable SSH
+- Reboot & reconnect
+- execute:
+sudo su -
+apt-get install mercurical
+hg clone https://hlw31.de@code.google.com/p/openhabpi/
+cd openhabpi
+sh install.sh
