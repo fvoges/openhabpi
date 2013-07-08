@@ -8,7 +8,7 @@
 - Reboot & reconnect
 - execute:
 sudo su -
-apt-get install mercurical
+apt-get install mercurial
 hg clone https://hlw31.de@code.google.com/p/openhabpi/
 cd openhabpi
 sh install.sh
