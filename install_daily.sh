@@ -1,5 +1,7 @@
 #!/bin/bash
 
+ADDONS=$(pwd)/addons
+
 #
 # Prepare for openHAB, create openhab-user
 #
@@ -44,12 +46,12 @@ ln -snf runtime-$DATE runtime
 ln -snf /home/openhab/configurations/ runtime/configurations
 [ ! -d etc ] && mv runtime/etc .
 ln -snf /home/openhab/etc runtime/etc
-cd -
+cd /home/openhab
 
 #
 # Add openhab to autostart on boot
 #
-cp addon/initscript /etc/init.d/openhab
+cp $ADDONS/initscript.sh /etc/init.d/openhab
 chmod 774 /etc/init.d/openhab
 update-rc.d openhab defaults
 
@@ -58,12 +60,12 @@ update-rc.d openhab defaults
 #
 apt-get install samba
 grep openhab.cfg /etc/samba/smb.conf || echo "include = /etc/samba/openhab.cfg" >> /etc/smb.conf
-cp openhab.cfg-samba /etc/samba/openhab.cfg
+cp $ADDONS/openhab.cfg-samba /etc/samba/openhab.cfg
 
 #
 # Install oh_cmd
 #
-cp addons/oh_cmd /usr/local/bin/oh_cmd
+cp $ADDONS/oh_cmd /usr/local/bin/oh_cmd
 chmod 755 /usr/local/bin/oh_cmd
-cp addons/oh_cmd-bash_completion /etc/bash_completion.d/oh_cmd
+cp $ADDONS/oh_cmd-bash_completion /etc/bash_completion.d/oh_cmd
 chmod 755 /etc/bash_completion.d/oh_cmd
