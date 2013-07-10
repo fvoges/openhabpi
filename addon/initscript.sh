@@ -1,7 +1,7 @@
 #!/bin/sh
 ### BEGIN INIT INFO
 # Provides:          openhab
-# Required-Start:    $remote_fs $syslog openntpd
+# Required-Start:    $remote_fs $syslog ntp
 # Required-Stop:     $remote_fs $syslog 
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
