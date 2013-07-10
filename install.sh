@@ -1,19 +1,19 @@
 #!/bin/bash
 
-ADDONS=$(pwd)/addons
+ADDONS=$(pwd)/addon
 
 #
 # Prepare for openHAB, create openhab-user
 #
 id openhab 2>/dev/null >/dev/null || useradd -c openHAB -d /home/openhab -m -U openhab
+echo "openhab:openhab" | chpasswd
 
 #
 # Slim down image
 #
-aptitude update
-aptitude purge xserver-xorg xserver-xorg-core x11-common lxde
-apt-get autoremove
-aptitude upgrade
+apt-get -y purge xserver-xorg xserver-xorg-core x11-common lxde
+apt-get -y install unzip curl
+apt-get -y autoremove
 
 #
 # Java: Download && install
@@ -46,7 +46,11 @@ ln -snf runtime-$DATE runtime
 ln -snf /home/openhab/configurations/ runtime/configurations
 [ ! -d etc ] && mv runtime/etc .
 ln -snf /home/openhab/etc runtime/etc
-cd /home/openhab
+
+#
+# Fix permission
+#
+chown -R openhab:openhab *
 
 #
 # Add openhab to autostart on boot
@@ -58,8 +62,8 @@ update-rc.d openhab defaults
 #
 # Samba setup for easy access to config
 #
-apt-get install samba
-grep openhab.cfg /etc/samba/smb.conf || echo "include = /etc/samba/openhab.cfg" >> /etc/smb.conf
+apt-get -y install samba
+grep openhab /etc/samba/smb.conf || echo "include = /etc/samba/openhab.cfg" >> /etc/samba/smb.conf
 cp $ADDONS/openhab.cfg-samba /etc/samba/openhab.cfg
 
 #
@@ -69,3 +73,8 @@ cp $ADDONS/oh_cmd /usr/local/bin/oh_cmd
 chmod 755 /usr/local/bin/oh_cmd
 cp $ADDONS/oh_cmd-bash_completion /etc/bash_completion.d/oh_cmd
 chmod 755 /etc/bash_completion.d/oh_cmd
+
+#
+# Reboot to start openhab
+#
+reboot
