@@ -1,7 +1,7 @@
 - Get a (at least) 2GB SD Card with the Raspberry PI, best to choose compatible class 10
 - Download Hexxeh's Raspbian from http://www.raspbian.org/HexxehImages (Direct: http://distribution.hexxeh.net/raspbian/raspbian-r3.zip)
 - Write Image to SD using Win32 Disk Imager just like official Image (Tutorial: http://www.youtube.com/watch?v=sdSB1GKQIdU)
-- SSH into Host "raspbian" using f.e. PuTTY, User root, Password hexxeh
+- SSH into Host "raspbian" using f.e. PuTTY, User root, Password hexxeh and execute:
 apt-get update
 apt-get -y install mercurial file
 hg clone https://hlw31.de@code.google.com/p/openhabpi/

@@ -3,9 +3,6 @@
 # Regenerate SSH Host Keys, restart SSHd
 rm /etc/ssh/ssh_host_* && dpkg-reconfigure openssh-server
 
-# Update apt-repo
-apt-get update
-
 # Install & configure NTP
 apt-get -y install ntp fake-hwclock vim
 echo "Europe/Berlin" > /etc/timezone
