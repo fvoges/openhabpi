@@ -1,18 +1,14 @@
-- Install Wheezy onto SD (http://elinux.org/RPi_Easy_SD_Card_Setup, 2013-05-25-wheezy-raspbian.zip)
-- sudo raspi-config
-  - Update raspi-config
-  - Set hostname ("openhab")
-  - Set memory split (16MB for GPU)
-  - Disable boot to desktop
-  - Enable SSH
-- Reboot & reconnect
-- execute:
-sudo su -
-apt-get install mercurial
+- Get a (at least) 2GB SD Card with the Raspberry PI, best to choose compatible class 10
+- Download Hexxeh's Raspbian from http://www.raspbian.org/HexxehImages (Direct: http://distribution.hexxeh.net/raspbian/raspbian-r3.zip)
+- Write Image to SD using Win32 Disk Imager just like official Image (Tutorial: http://www.youtube.com/watch?v=sdSB1GKQIdU)
+- SSH into Host "raspbian" using f.e. PuTTY, User root, Password hexxeh
+apt-get -y install mercurial file
 hg clone https://hlw31.de@code.google.com/p/openhabpi/
 cd openhabpi
+sh raspian_firstboot.sh
 sh install.sh
-
+- Wait until connection closes because RPI reboots.
+- Wait 5 minutes then try http://openhab:8080/openhab.app?sitemap=demo to open the demo right from your RPI
 
 Info: Choose install.sh for stable build, install_daily.sh for bleeding edge daily build
 If you dare to run the install-script a second time, please do at least an "hg update" before.
