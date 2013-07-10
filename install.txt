@@ -4,9 +4,9 @@
 - SSH into Host "raspbian" using f.e. PuTTY, User root, Password hexxeh and execute:
 apt-get update
 apt-get -y install mercurial file
-hg clone https://hlw31.de@code.google.com/p/openhabpi/
+hg clone http://hlw31.de@code.google.com/p/openhabpi/
 cd openhabpi
-sh raspian_firstboot.sh
+sh raspbian_firstboot.sh
 sh install.sh
 - Wait until connection closes because RPI reboots.
 - Wait 5 minutes then try http://openhab:8080/openhab.app?sitemap=demo to open the demo right from your RPI
