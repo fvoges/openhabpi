@@ -1,7 +1,7 @@
 - Get a (at least) 2GB SD Card with the Raspberry PI, best to choose compatible class 10
 - Download Hexxeh's Raspbian from http://www.raspbian.org/HexxehImages (Direct: http://distribution.hexxeh.net/raspbian/raspbian-r3.zip)
 - Write Image to SD using Win32 Disk Imager just like official Image (Tutorial: http://www.youtube.com/watch?v=sdSB1GKQIdU)
-- SSH into Host "raspbian" using f.e. PuTTY, User root, Password hexxeh and execute:
+- SSH into Host "raspbian" using f.e. PuTTY, User root, Password hexxeh and execute, ignore errors (not yet discarded):
 apt-get update
 apt-get -y install mercurial file
 hg clone http://hlw31.de@code.google.com/p/openhabpi/
@@ -10,6 +10,3 @@ bash raspbian_firstboot.sh
 bash install.sh
 - Wait until connection closes because RPI reboots.
 - Wait 5 minutes then try http://openhab:8080/openhab.app?sitemap=demo to open the demo right from your RPI
-
-Info: Choose install.sh for stable build, install_daily.sh for bleeding edge daily build
-If you dare to run the install-script a second time, please do at least an "hg update" before.
